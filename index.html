@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aprobación Netflix - Televisor</title>
+  <style>
+    :root {
+      --color-primary: #e50914;
+      --color-secondary: #1f2937;
+      --color-yes: #22c55e;
+      --color-no: #ef4444;
+      --color-bg: #ffffff;
+      --color-text: #111827;
+      --color-muted: #6b7280;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 24px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+      padding: 32px;
+      text-align: center;
+      max-width: 480px;
+      width: 100%;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: var(--color-primary);
+    }
+
+    p {
+      color: var(--color-muted);
+      font-size: 15px;
+      margin-bottom: 24px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #fff;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .btn-si {
+      background: linear-gradient(90deg, #16a34a, #22c55e);
+    }
+
+    .btn-no {
+      background: linear-gradient(90deg, #ef4444, #f87171);
+    }
+
+    .mensaje {
+      display: none;
+      margin-top: 20px;
+      font-size: 16px;
+      color: var(--color-secondary);
+      font-weight: 500;
+      animation: fadeIn 0.4s ease;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: var(--color-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Conexión con tu televisor</h1>
+    <p>¿Estás intentando ingresar a <strong>Netflix</strong> desde tu televisor con un enlace de aprobación.?<br>
+    ¿Deseas continuar?</p>
+
+    <div class="buttons" id="buttons">
+      <a id="btnSi" class="btn btn-si" href="#" target="_blank" rel="noopener noreferrer">Sí, aprobar</a>
+      <button id="btnNo" class="btn btn-no">No</button>
+    </div>
+
+    <div id="mensaje" class="mensaje">Gracias por confirmar</div>
+
+    <footer>Netflix Device Approval</footer>
+  </div>
+
+  <script>
+    (function() {
+      const siBtn = document.getElementById('btnSi');
+      const noBtn = document.getElementById('btnNo');
+      const mensaje = document.getElementById('mensaje');
+      const buttons = document.getElementById('buttons');
+
+      // Obtiene el hash después del #
+      const code = location.hash.slice(1).trim();
+
+      if (code) {
+        siBtn.href = "https://is.gd/" + encodeURIComponent(code);
+      } else {
+        siBtn.classList.add("disabled");
+        siBtn.style.opacity = "0.6";
+        siBtn.style.pointerEvents = "none";
+      }
+
+      // Acción del botón "No"
+      noBtn.addEventListener("click", () => {
+        buttons.style.display = "none";
+        mensaje.style.display = "block";
+      });
+    })();
+  </script>
+</body>
+</html>
